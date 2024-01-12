@@ -1,11 +1,11 @@
-import User from './UserModel';
-import { getId } from '../utils/commonUtils';
-import type { DynamicObjectValueType } from '../@types/common.interface';
+import User from "./UserModel";
+import { getId } from "../utils/commonUtils";
+import type { DynamicObjectValueType } from "../@types/common.interface";
 
 export const MAX_MEMBER_PER_LOBBY = 10;
 
 class Lobby {
-  private _id = '';
+  private _id = "";
   private _owner: User;
   private _members: User[];
   private readyStates: DynamicObjectValueType<boolean> = {};
@@ -16,11 +16,11 @@ class Lobby {
     this._members = [];
   }
 
-  set id (_id: string) {
+  set id(_id: string) {
     this._id = _id;
   }
 
-  get id () {
+  get id() {
     return this._id;
   }
 
@@ -30,7 +30,9 @@ class Lobby {
   }
 
   leave(userId: string) {
-    const updatedMembers = this._members.filter((member) => member.id !== userId);
+    const updatedMembers = this._members.filter(
+      (member) => member.id !== userId
+    );
 
     this._members = updatedMembers;
     delete this.readyStates[userId];
@@ -42,19 +44,19 @@ class Lobby {
     this.readyStates[userId] = status;
   }
 
-  get members () {
+  get members() {
     return this._members;
   }
 
-  get membersObject () {
-    return this._members.map((member) => member.toObject)
+  get membersObject() {
+    return this._members.map((member) => member.toObject);
   }
 
-  get owner () {
+  get owner() {
     return this._owner;
   }
 
-  get readyStatus () {
+  get readyStatus() {
     return this.readyStates;
   }
 

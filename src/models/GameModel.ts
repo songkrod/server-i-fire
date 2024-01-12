@@ -21,10 +21,11 @@ class Game {
     stack2: [],
     stack3: [],
     stack4: [],
-  }
+  };
 
-  constructor (lobby: Lobby) {
+  constructor(lobby: Lobby) {
     this.turn = 1;
+    this.lobby = lobby;
     this.players = {};
     this.cards = [];
     this._stacks = {
@@ -33,7 +34,7 @@ class Game {
       stack3: [],
       stack4: [],
     };
-    
+
     this.initPlayers(lobby.members);
     this.createCards();
     this.drawCards();
@@ -62,14 +63,14 @@ class Game {
     const pick: Card[] = [];
     STACK_LOOP.map(() => {
       let index = Math.round(Math.random() * (this.cards.length - 1));
-  
+
       const picked = this.cards.splice(index, 1);
-  
+
       pick.push(picked[0]);
     });
-  
+
     const sorted = pick.sort(sortCards);
-  
+
     this.stacks.stack1.push(sorted[0]);
     this.stacks.stack2.push(sorted[1]);
     this.stacks.stack3.push(sorted[2]);
@@ -86,14 +87,17 @@ class Game {
 
   private shuffleCards(cards: Card[]) {
     const array = [...cards];
-    let currentIndex = array.length,  randomIndex;
+    let currentIndex = array.length,
+      randomIndex;
 
     while (currentIndex > 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
       [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+        array[randomIndex],
+        array[currentIndex],
+      ];
     }
 
     return array;
@@ -103,11 +107,11 @@ class Game {
     this.playerJoined[playerId] = true;
   }
 
-  get id () {
+  get id() {
     return this.lobby.id;
   }
 
-  get stacks () {
+  get stacks() {
     return this._stacks;
   }
 
@@ -117,7 +121,7 @@ class Game {
       stack2: this.stacks.stack1.map((card) => card.toObject),
       stack3: this.stacks.stack1.map((card) => card.toObject),
       stack4: this.stacks.stack1.map((card) => card.toObject),
-    }
+    };
   }
 
   get allPlayerJoined() {
