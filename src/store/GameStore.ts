@@ -1,22 +1,27 @@
+import { DynamicObjectValueType } from "../@types/common.interface";
 import Game from "../models/GameModel";
 
 class GameProvider {
-  private _games: Game[] = [];
+  private _games: DynamicObjectValueType<Game> = {};
 
   get games() {
     return this._games;
   }
 
   addGame(game: Game) {
-    this._games = this._games.filter((_game) => _game.id === game.id);
+    this._games[game.id] = game;
+  }
 
-    this._games.push(game);
+  removeGame(id: string) {
+    delete this._games[id];
   }
 
   getGameById(id: string) {
-    const target = this._games.find((_game) => _game.id === id);
+    return this._games[id];
+  }
 
-    return target || null;
+  forceUserLeaveGame(userId: string) {
+    Object.values(this._games).forEach((game) => game.leave(userId));
   }
 }
 

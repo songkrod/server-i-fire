@@ -8,22 +8,20 @@ class LobbyProvider {
     this._lobbies[lobby.id] = lobby;
   }
 
-  removeLobby(lobby: Lobby) {
-    delete this._lobbies[lobby.id];
+  removeLobby(lobbyId: string) {
+    delete this._lobbies[lobbyId];
   }
 
   get lobbies () {
     return this._lobbies;
   }
 
-  get lobby () {
-    const lobbies = Object.values(this._lobbies);
-
-    return lobbies[0] || null;
+  getLobbyById(id: string) {
+    return this._lobbies[id];
   }
 
-  getUserById(id: string) {
-    return this._lobbies[id];
+  forceUserLeaveLobby(userId: string) {
+    Object.values(this._lobbies).forEach((lobby) => lobby.leave(userId));
   }
 }
 

@@ -6,13 +6,11 @@ export const MAX_MEMBER_PER_LOBBY = 10;
 
 class Lobby {
   private _id = '';
-  private _owner: User;
   private _members: User[];
   private readyStates: DynamicObjectValueType<boolean> = {};
 
-  constructor(owner: User) {
+  constructor() {
     this._id = getId();
-    this._owner = owner;
     this._members = [];
   }
 
@@ -51,7 +49,7 @@ class Lobby {
   }
 
   get owner () {
-    return this._owner;
+    return this._members[0];
   }
 
   get readyStatus () {

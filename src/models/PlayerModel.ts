@@ -9,9 +9,11 @@ class Player {
 
   constructor(user: User) {
     this._user = user;
-    this._hands = [];
-    this._score = [];
-    this._pickedCard = null;
+    this.reset();
+  }
+
+  get id () {
+    return this._user.id;
   }
 
   set hands (cards: Card[]) {
@@ -32,10 +34,15 @@ class Player {
 
   pickCard(no: number) {
     const target = this._hands.find((card) => card.no === no);
+    this._hands = this._hands.filter((card) => card.no !== no);
 
     if (!target) return;
 
     this._pickedCard = target;
+  }
+
+  clearPickCard() {
+    this._pickedCard = null;
   }
 
   addScore(cards: Card[]) {
@@ -46,6 +53,16 @@ class Player {
     return this._score.reduce((prev, current) => {
       return prev + current.score;
     }, 0);
+  }
+
+  get userObject() {
+    return this._user.toObject;
+  }
+
+  reset() {
+    this._hands = [];
+    this._score = [];
+    this._pickedCard = null;
   }
 }
 

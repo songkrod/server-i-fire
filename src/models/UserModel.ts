@@ -2,11 +2,11 @@ import { Socket } from "socket.io";
 import { getId } from "../utils/commonUtils";
 
 class User {
-  private socket: Socket;
+  private _socket: Socket;
   private _name = '';
 
   constructor(socket: Socket) {
-    this.socket = socket;
+    this._socket = socket;
     this._name = getId();
   }
 
@@ -18,8 +18,12 @@ class User {
     return this._name;
   }
 
-  get id () {
-    return this.socket.id;
+  get id (): string {
+    return this._socket.id;
+  }
+
+  get socket() {
+    return this._socket;
   }
 
   get toObject () {
