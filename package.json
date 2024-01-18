@@ -2,7 +2,8 @@
   "name": "server-ifire",
   "scripts": {
     "dev": "tsnd --respawn src/index.ts",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "serve": "./ngrok http 3001"
   },
   "dependencies": {
     "nanoid": "3",
