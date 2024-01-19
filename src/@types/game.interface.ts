@@ -48,5 +48,6 @@ export type ActivityType = {
 }
 
 export type PlayerScoreType = PlayerType & {
-  score: number
+  score: number;
+  owner: boolean;
 };

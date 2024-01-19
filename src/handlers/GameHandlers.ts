@@ -3,6 +3,8 @@ import { GameStore } from '../store/GameStore';
 import { BuyStackType, GameIdType, PlayerPickCardType } from '../@types/game.interface';
 import { UserStore } from '../store/UserStore';
 import Game from '../models/GameModel';
+import Lobby from '../models/LobbyModel';
+import { LobbyStore } from '../store/LobbyStore';
 
 const getGameChannel = (gameId: string) => {
   return `game:${gameId}`

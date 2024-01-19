@@ -29,11 +29,16 @@ export const forceLeaveLobby = (io: Server, socket: Socket) => {
 }
 
 export default (io: Server, socket: Socket) => {
-  const onCreateLobby = () => {
+  const onCreateLobby = (payload?: string) => {
     const lobby = new Lobby();
     LobbyStore.addLobby(lobby);
 
     onJoinLobby(JSON.stringify({ id: lobby.id }));
+
+    if (payload) {
+      const { id } = JSON.parse(payload) as GameIdType;
+      io.to(`game:${id}`).except(socket.id).emit('lobby:created', JSON.stringify({ id: lobby.id }));
+    }
   }
 
   const onJoinLobby = (payload: string) => {

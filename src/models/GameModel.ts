@@ -14,6 +14,7 @@ const STACK_LOOP = [1, 2, 3, 4];
 class Game {
   private _id: string;
   private _turn: number = 0;
+  private _ownerId: string;
   private playerJoined: DynamicObjectValueType<boolean> = {};
   private playerReadyForNewTurn: string[] = [];
   private _players: DynamicObjectValueType<Player> = {};
@@ -29,6 +30,7 @@ class Game {
     this._turn = 0;
     this._players = {};
     this.cards = [];
+    this._ownerId = lobby.owner.id;
     this.playerReadyForNewTurn = [];
     this._id = lobby.id;
     this._stacks = {
@@ -295,7 +297,8 @@ class Game {
   getPlayerScore() {
     const result: PlayerScoreType[] = Object.values(this._players).map((player) => ({
       ...player.userObject,
-      score: player.score
+      score: player.score,
+      owner: player.id === this._ownerId,
     }));
 
     return result;
